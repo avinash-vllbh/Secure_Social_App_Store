@@ -1,0 +1,53 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/developerImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/developerImage"
+            android:src="@drawable/ic_contact_picture" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/developerName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="left"
+                android:text="@string/developerName"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <Button
+                android:id="@+id/followButton"
+                android:layout_width="126dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin="15dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/OrangeRed"
+                android:text="@string/title_follow_group"
+                android:textAllCaps="true"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/WhiteSmoke"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

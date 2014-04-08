@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email">email@email.com</string>
+    <string name="firstname_lastname">First registrationProgressregistrationProgressregistrationProgressregistrationProgressregistrationProgressregistrationProgressregistrationProgressregistrationProgressregistrationProgressregistrationProgressName Last Name</string>
+    <string name="password">Password</string>
+    <string name="confirmpassword">Confirm Password</string>
+    <string name="dataOfBirth">Date Of Birth</string>
+    <string name="mobileNumber">Mobile Number</string>
+    <string name="registerButton">Sign Up</string>
+    <string name="registrationProgress">Progressing</string>
+    
+</resources>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MobiCloudV2</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="search_hint">search app</string>
+    <string name="title_activity_searchable">Search Results</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="title_applications_tab">Apps</string>
+    <string name="title_friends_tab">Friends</string>
+    <string name="title_developers_tab">developers</string>
+    <string name="title_groups_tab">groups</string>
+    <string name="imageDescription">your image</string>
+    <string name="title_activity_details">Application Details</string>
+    <string name="title_install_option">Install	</string>
+    <string name="title_follow_group"> Follow </string>
+    <string name="title_group"> Group Name </string>
+    <string name="groupOwner"> Owner </string>
+    <string name="action_creategroup"> Create Group </string>
+
+    <string-array name="ratings">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string name="title_activity_user_details">UserDetailsActivity</string>
+    <string name="userName">User Name</string>
+    <string name="title_application">Application Name</string>
+    <string name="developerName">developer</string>
+    <string name="appsLogo">Application Logo</string>
+    <string name="label_downloads">downloads:</string>
+
+    <plurals name="downloads">
+        <item quantity="zero">no downloads</item>
+        <item quantity="one">one download</item>
+        <item quantity="other">%d downloads</item>
+    </plurals>
+
+    <string name="descriptionTitle">Description:</string>
+    <string name="description">Description of the application goes into this space.</string>
+    <string name="rating">Rating:</string>
+    <string name="yourRating">Rate this app</string>
+    <string name="comment">Add Comment</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="addFriendButton">Add Friend</string>
+    <string name="viewDetails"> View Details</string>
+    <string name="title_activity_developer_details">DeveloperDetailsActivity</string>
+    <string name="title_activity_group_details">GroupDetailsActivity</string>
+    <string name="developerImage">Developer profile pic</string>
+    <string name="title_activity_create_group">CreateGroupActivity</string>
+    <string name="groupName">Group Name</string>
+    <string name="groupDescription">description</string>
+    <string name="createGroup">Create Group</string>
+    <string name="title_activity_notification">NotificationActivity</string>
+
+</resources>
