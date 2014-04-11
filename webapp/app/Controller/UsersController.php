@@ -43,6 +43,7 @@ public function login() {
 				$this->Session->write('User.last_name',  $user['last_name']);
 				$this->Session->write('User.id',         $user['id']);
 				$this->Session->write('User.email',      $user['email']);
+				$this->Session->write('User.role',      $user['role']);
 				//Update logged in time to users database
 				$this->User->updateAll(array('User.last_login'=>"'".$date."'"),array('User.id' => $this->Session->read('User.id')));
 				$this->Session->setFlash('Welcome '.$user['first_name']." ".$user['last_name']);

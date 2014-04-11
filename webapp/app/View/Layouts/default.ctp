@@ -39,6 +39,22 @@ echo $this->fetch('script');
 <body>
 	<div class="container">
 		<header id="header">
+			<?php if($this->Session->check('User.id') && $this->Session->read('User.role') == "admin" ) { ?>
+			<div class="row-fluid">
+				<nav class="navbar navbar-inverse" role="navigation">
+					<div class="container">
+						<div class="navbar-inner">
+							<ul class="nav navbar-nav">
+								<li><a class="navbar-brand" href="#">Admin Panel</a></li>
+								<li><?php echo $this->Html->link('Users', array('controller' => 'admin', 'action' => 'index')); ?></li>
+			         			<li><?php echo $this->Html->link('Applications', array('controller' => 'admin', 'action' => 'index')); ?></li>
+			         			<li><?php echo $this->Html->link('Notification', array('controller' => 'admin', 'action' => 'index')); ?></li>
+			         		</ul>
+			        	</div>
+		        	</div>
+		        </nav>
+			</div>
+			<?php } ?>
 			<div class = "row-fluid">
 			<div class = "span9">
 			<?php echo $this->Html->image('ss_logo.png', array("alt" => "Secure Social",
