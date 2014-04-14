@@ -1,0 +1,52 @@
+@charset "utf-8";
+/**
+ *
+ * Custom CSS for Secure_social
+ *
+ * 
+ * Copyright (c) Arizona State University, (vlab.asu.edu)
+ *
+ * 
+ */
+ * {
+	margin: 0;
+}
+html, body {
+	height: 100%;
+}
+ .wrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -4em;
+}
+.footer, .push {
+	background-color: #222;
+ 	color: #fff;
+ 	text-align: center;
+ 	height: 4em;
+ 	background-image: none;
+}
+ .message,
+ .error-message {
+ 	color : #ff0000;
+ 	font-size: 110%;
+ 	line-height: 15px;
+ 	padding: 0.3em;
+ 	/*background: #c43c35;*/
+ 	/*text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);*/
+
+ }
+ .error-message {
+ 	font-size: 100%;
+
+ }
+
+ #footer {
+ 	background-color: #222;
+ 	color: #fff;
+ 	text-align: center;
+ 	height: 100px;
+ 	background-image: none;
+
+ }

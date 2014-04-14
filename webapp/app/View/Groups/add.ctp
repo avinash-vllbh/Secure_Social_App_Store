@@ -4,8 +4,9 @@
 		<legend><?php echo __('Add Group'); ?></legend>
 	<?php
 		echo $this->Form->input('name');
-		echo $this->Form->input('admin_user_id');
-		echo $this->Form->input('created_on');
+		echo $this->Form->input('description');
+		echo $this->Form->input('user_id');
+		//echo $this->Form->input('created_on');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

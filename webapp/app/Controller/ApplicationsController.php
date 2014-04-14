@@ -15,7 +15,13 @@ class ApplicationsController extends AppController {
  * @var array
  */
 	public $components = array('Paginator', 'Session');
-	public $uses = array('Application', 'ApplicationRevision');
+	public $uses = array('Application', 'ApplicationRevision', 'UserApplication', 'User');
+
+	public function beforeFilter() {
+		parent::beforeFilter();
+		//$this->Auth->allow('add');
+		$this->Auth->allow('download_app');
+}
 
 /**
  * index method
@@ -24,13 +30,50 @@ class ApplicationsController extends AppController {
  */
 	public function index() {
 		$this->Application->recursive = 0;
-		$this->set('applications', $this->Paginator->paginate());
-		$this->set('_serialize', array('applications'));
-		//$applications = $this->Application->find('all');
-		// $this->set(array(
-		// 	'applications' => $applications,
-		// 	'_serialize' => array($applications)
-		// 	));
+		$headers = apache_request_headers();
+		if(isset($headers['token'])) {
+			//Return token --> users list of applications
+			$token = $headers['token'];
+				$user = $this->User->find('first', array(
+					'conditions' => array('User.token' => $token),
+					'fields' => array('User.id'),
+					'recursive' => 0));
+				if(isset($user['User']['id'])) {
+					//Check if params is set -- List of apps for passed UserID
+					if(isset($this->request->params['pass'][0])) {
+						$conditions = array('User.id' => $this->request->params['pass'][0]);
+						if($this->User->hasAny($conditions)) {
+							$result = $this->UserApplication->find('all', array(
+										'conditions' => array('UserApplication.user_id' => $this->request->params['pass'][0]),
+										'recursive' => 2));
+							//pr($result);
+							$this->set('result',$result);
+							$this->set('_serialize', array('result'));
+						} else {
+							$result = "Invalid User ID";
+							$this->set('result',$result);
+							$this->set('_serialize', array('result'));
+						}
+					} else { 
+						$result = $this->UserApplication->find('all', array(
+						'conditions' => array('UserApplication.user_id' => $user['User']['id']),
+						'recursive' => 2));
+						$this->set('result',$result);
+						$this->set('_serialize', array('result'));
+					}
+				} else {
+					//Invalid token
+					$result = "Invalid token id";
+					$this->set('_serialize', array($result));
+				}
+
+		} else {
+			//return generic list of apps
+
+			$this->set('applications', $this->Paginator->paginate());
+			$this->set('result', $this->Paginator->paginate());
+			$this->set('_serialize', array('result'));
+		}
 	}
 
 /**
@@ -198,12 +241,59 @@ class ApplicationsController extends AppController {
 	public function download_app($id = null) {
 		$this->Application->recursive = -1;
 		if($id != null) {
-			$app = $this->Application->find('first', array('conditions'=>array('Application.id' => $id)));
-			$name = $this->ApplicationRevision->find('first', 
-									array('conditions' => array('ApplicationRevision.app_id' => $id),
-											'order' => array('ApplicationRevision.id' => 'desc')));
-			$this->response->file($app['Application']['path'], array('download' => true, 'name' => $name['ApplicationRevision']['filename']));
-			return $this->response;
+			$headers = apache_request_headers();
+			if(isset($headers['token'])) {
+				// if($this->request->params['ext'] == "json") {
+					$token = $headers['token'];
+					$user = $this->User->find('first', array(
+					'conditions' => array('User.token' => $token),
+					'fields' => array('User.id'),
+					'recursive' => 0));
+					if(isset($user['User']['id'])) {
+						$app = $this->Application->find('first', array('conditions'=>array('Application.id' => $id)));
+						$name = $this->ApplicationRevision->find('first', 
+											array('conditions' => array('ApplicationRevision.app_id' => $id),
+													'order' => array('ApplicationRevision.id' => 'desc')));
+						//pr($name);
+						//apache_response_headers('Content-Type') = 'application/vnd.android.package-archive'; 
+						$this->response->file($app['Application']['path'], array(
+							'download' => true, 'name' => $name['ApplicationRevision']['filename']));
+
+						//Record the download against the user
+						$user_app = array();
+						$user_app['user_id'] = $user['User']['id'];
+						$user_app['application_id'] = $app['Application']['id'];
+						$user_app['downloaded_on'] = date('Y-m-d H:i:s');
+						$record = $this->UserApplication->find('first', array(
+							'conditions' => array('UserApplication.user_id' => $user_app['user_id'],
+												'UserApplication.application_id' => $user_app['application_id'])));
+						if(isset($record['UserApplication']['id'])) {
+							//Do not save
+						} else {
+							$this->UserApplication->create();
+							$this->UserApplication->save($user_app);
+						}
+						 return $this->response;
+					} else {
+						$result = "Invalid Token";
+						$this->set('_serialize',array($result));
+					}
+				// }
+			} else {
+				//Check if the user is logged in 
+				if($this->Session->check('User.id')){
+				//If there is a session set
+					$app = $this->Application->find('first', array('conditions'=>array('Application.id' => $id)));
+					$name = $this->ApplicationRevision->find('first', 
+											array('conditions' => array('ApplicationRevision.app_id' => $id),
+													'order' => array('ApplicationRevision.id' => 'desc')));
+					$this->response->file($app['Application']['path'], array('download' => true, 'name' => $name['ApplicationRevision']['filename']));
+					return $this->response;
+				} else {
+					$this->Session->setFlash("You need to login to download the applicaiton");
+					$this->redirect($this->Auth->redirectUrl(array('controller' => 'users' , 'action' => 'login' )));
+				}
+			}
 		}
 	}
 }

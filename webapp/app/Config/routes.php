@@ -29,7 +29,10 @@ Router::resourceMap(array(
     array('action' => 'edit', 'method' => 'PUT', 'id' => true),
     array('action' => 'delete', 'method' => 'DELETE', 'id' => true),
     array('action' => 'update', 'method' => 'POST', 'id' => true),
-    array('action' => 'mobile_login', 'method' => 'POST', 'id' => false)
+    array('action' => 'mobile_login', 'method' => 'POST', 'id' => false),
+    array('action' => 'group_join', 'method' => 'POST', 'id' => true),
+    array('action' => 'follow', 'method' => 'POST', 'id' => true),
+    array('action' => 'unfollow', 'method' => 'POST', 'id' => true),
 ));
 /*mapResources to Controllers*/
 
@@ -37,6 +40,8 @@ Router::resourceMap(array(
 	Router::mapResources('applications');
 	Router::mapResources('groups');
 	Router::mapResources('notifications');
+	Router::mapResources('user_followers');
+	Router::mapResources('user_friends');
 	
 	Router::parseExtensions('json');
 

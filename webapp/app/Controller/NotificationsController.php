@@ -15,7 +15,9 @@ class NotificationsController extends AppController {
  * @var array
  */
 	public $components = array('Paginator', 'Session');
-	public $uses = array('User');
+	public $uses = array('User','Notification');
+
+
 
 /**
  * index method
@@ -30,20 +32,26 @@ class NotificationsController extends AppController {
 					'conditions' => array('User.token' => $token),
 					'fields' => array('User.id'),
 					'recursive' => 0));
-			$notifications = $this->Notification->find('all', array(
+			//pr($user);
+			if(isset($user['User']['id'])) {
+				$result = $this->Notification->find('all', array(
 								'conditions' => array('Notification.user_id' => $user['User']['id'],
 								'Notification.status' => 1)));
 				//To set the notifications as read for next login
-			$this->Notification->updateAll(
-				array('Notification.status' => 0),
-				array('Notification.user_id' => $user['User']['id'])
+				$this->Notification->updateAll(
+					array('Notification.status' => 0),
+					array('Notification.user_id' => $user['User']['id'])
 				);
-			$this->set('notifications', $notifications);
-			$this->set('_serialize', array('notifications'));
+				//pr($result);
+			} else {
+				$result = "Invalid Token - No such user";
+			}
+			$this->set('result', $result);
+			$this->set('_serialize', array('result'));
 		} else {
-			$notifications = "You have no notifications";
-			$this->set('notifications', $notifications);
-			$this->set('_serialize', array('notifications'));
+			$result = "Invalid Token - Token required";
+			$this->set('result', $result);
+			$this->set('_serialize', array('result'));
 		}
 	}
 
@@ -123,3 +131,4 @@ class NotificationsController extends AppController {
 // 		}
 // 		return $this->redirect(array('action' => 'index'));
 // 	}}
+}

@@ -48,7 +48,8 @@ var app_ratings = new Array();
 <?php endforeach; ?>
  for(var i=1;i<"<?php echo $count; ?>";i++) {
 	var id = '#rating'+i;
-	$(id).raty({score: app_ratings[i-1]});
+	$(id).raty({score: app_ratings[i-1],
+	path: 'img'});
  }
 </script>
 

@@ -20,8 +20,16 @@ class GroupsUser extends AppModel {
  */
 	public $displayField = 'id';
 
-	public $belongsTo = 'Group';
+	public $belongsTo = array(
+		'Group' => array(
+			'className' => 'Group'
+			),
+		'User' => array(
+			'className' => 'User',
+			'fields' => array('User.id', 'User.first_name', 'User.last_name', 'User.email', 'User.phone', 'User.role')
+			));
 
+	//public $belongsTo = 'User';
 	// var $belongsTo = array(
 	// 	'Group' => array(
 	// 		'classname' => 'Group',

@@ -101,6 +101,14 @@ var $hasMany = array(
 	'Application' => array(
 		'className' => 'Application',
 		'foreignKey' => 'user_id',
+		'fields' => array(
+			'Application.id',
+			 'Application.user_id',
+			  'Application.title',
+			   'Application.description',
+			    'Application.count_rating',
+			     'Application.rating',
+			      'Application.downloads'),
 		//'conditions' => array('approved' = 1)
 		'order' => 'rating DESC'
 		),

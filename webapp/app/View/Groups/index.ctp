@@ -1,6 +1,13 @@
-<div class="groups index">
+<?php //pr($result); ?>
+<div class="col-md-3 actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('New Group'), array('action' => 'add')); ?></li>
+	</ul>
+</div>
+<div class="col-md-9 groups index">
 	<h2><?php echo __('Groups'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
+	<table class="table table-striped" cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('name'); ?></th>
@@ -12,7 +19,7 @@
 	<tr>
 		<td><?php echo h($group['Group']['id']); ?>&nbsp;</td>
 		<td><?php echo h($group['Group']['name']); ?>&nbsp;</td>
-		<td><?php echo h($group['Group']['admin_user_id']); ?>&nbsp;</td>
+		<td><?php echo h($group['User']['first_name']); ?>&nbsp;</td>
 		<td><?php echo h($group['Group']['created_on']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $group['Group']['id'])); ?>

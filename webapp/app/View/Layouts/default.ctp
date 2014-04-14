@@ -28,6 +28,7 @@ echo $this->Html->meta('icon');
 // echo $this->Html->css('cake.generic');
 echo $this->Html->css('bootstrap');
 echo $this->Html->css('bootstrap-theme.min');
+echo $this->Html->css('style');
 
 echo $this->fetch('meta');
 echo $this->fetch('css');
@@ -38,7 +39,7 @@ echo $this->fetch('script');
 <?php echo $this->Html->script('bootstrap.min.js') ?>
 </head>
 <body>
-	<div class="container">
+	<div class="container wrapper">
 			<div class="container-fluid" id="header">
 				<?php if($this->Session->check('User.id') && $this->Session->read('User.role') == "admin" ) { ?>
 				<div class="row">
@@ -102,8 +103,9 @@ echo $this->fetch('script');
 		
 		<?php echo $this->fetch('content'); ?>
 		</div>
-		<div id="footer">
-		</div>
+	</div>
+	<div class="footer">
+		&#64;2014 Arizona State University
 	</div>
 	<?php //echo $this->element('sql_dump'); ?>
 </body>
